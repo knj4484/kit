@@ -3,14 +3,19 @@ title: Hooks
 ---
 
 An optional `src/hooks.js` (or `src/hooks.ts`, or `src/hooks/index.js`) file exports three functions, all optional, that run on the server — **getContext**, **getSession** and **handle**.
+`src/hooks.js`（あるいは`src/hooks.ts`や`src/hooks/index.js`）ファイルは、サーバー上で動作する3つの関数（**getContext**、**getSession**、**handle**）をエクスポートします。
 
 > The location of this file can be [configured](#configuration) as `config.kit.files.hooks`
+> このファイルの場所は、`config.kit.files.hooks`として[設定](#configuration)することが出来ます。
 
 ### getContext
 
 This function runs on every incoming request. It generates the `context` object that is available to [endpoint handlers](#routing-endpoints) as `request.context`, and used to derive the [`session`](#hooks-getsession) object available in the browser.
+この関数はリクエストが入ってくるたびに動作します。`request.context`として[endpoint handlers](#routing-endpoints)が利用することが出来て、ブラウザで利用出来る[`session`](#hooks-getsession)オブジェクトを作成するためにも利用される、`context`オブジェクトを生成します。
+
 
 If unimplemented, context is `{}`.
+実装されていなければ、コンテキストは`{}`です。
 
 ```ts
 type Incoming = {
@@ -44,8 +49,10 @@ export async function getContext({ headers }) {
 ### getSession
 
 This function takes the [`context`](#hooks-getcontext) object and returns a `session` object that is safe to expose to the browser. It runs whenever SvelteKit renders a page.
+この関数は、[`context`](#hooks-getcontext)オブジェクトを引数とし、ブラウザに公開しても安全な`session`オブジェクトを返します。この関数はSvelteKitがページをレンダリングするたびに動作します。
 
 If unimplemented, session is `{}`.
+実装されていなければ、セッションは`{}`です。
 
 ```ts
 type GetSession<Context = any, Session = any> = {
@@ -70,12 +77,16 @@ export function getSession({ context }) {
 ```
 
 > `session` must be serializable, which means it must not contain things like functions or custom classes, just built-in JavaScript data types
+> `session`はシリアライズ可能でなければいけません。つまり、ビルトインのJavaScriptデータ型だけを含んでいて、関数や自前のクラスを含んでいてはいけません。
 
 ### handle
 
 This function runs on every request, and determines the response. It receives the `request` object and `render` method, which calls SvelteKit's default renderer. This allows you to modify response headers or bodies, or bypass SvelteKit entirely (for implementing endpoints programmatically, for example).
+この関数はリクエストのたびに動作し、レスポンスをxxdeterminxx。この関数は、`request`オブジェクトとSvelteKitのデフォルトレンダラーを呼び出す`render`メソッドが引数です。これによって、レスポンスのヘッダーやボディを改変したり、（例えば、エンドポイントをプログラム的に実装するために）SvelteKitを完全に迂回することが出来ます。
 
 If unimplemented, defaults to `({ request, render }) => render(request)`.
+実装されていなければ、デフォルトの`({ request, render }) => render(request)`になります。
+
 
 ```ts
 type Request<Context = any> = {

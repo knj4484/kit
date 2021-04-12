@@ -3,6 +3,7 @@ title: Modules
 ---
 
 SvelteKit makes a number of modules available to your application.
+SvelteKitは、アプリケーション対して多くのモジュールを利用可能にしています。
 
 ### $app/env
 
@@ -11,9 +12,13 @@ import { amp, browser, dev, prerendering } from '$app/env';
 ```
 
 - `amp` is `true` or `false` depending on the corresponding value in your [project configuration](#configuration)
+- `amp`は[プロジェクトの設定](#configuration)での対応する値に基づいて`true`または`false`になります
 - `browser` is `true` or `false` depending on whether the app is running in the browser or on the server
+- `browser`はアプリがブラウザの中かサーバー上のどちらで動作しているかに基づいて`true`または`false`になります
 - `dev` is `true` in development mode, `false` in production
+- `dev`は、開発モードでは`true`、本番モードでは`false`になります
 - `prerendering` is `true` when [prerendering](#ssr-and-javascript-prerender), `false` otherwise
+- `prerendering`は、[prerendering](#ssr-and-javascript-prerender)なら`true`, そうでなければ`false`になります
 
 ### $app/navigation
 
