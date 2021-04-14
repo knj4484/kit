@@ -1,5 +1,11 @@
 # @sveltejs/kit
 
+## 1.0.0-next.75
+
+### Patch Changes
+
+- 11ec751: Fix build warnings about missing exports in hooks file
+
 ## 1.0.0-next.74
 
 ### Patch Changes
